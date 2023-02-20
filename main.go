@@ -3,10 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
+	conv "github.com/dzem87/funtemps/conv"
+	
 )
 
 // Definerer flag-variablene i hoved-"scope"
 var fahr float64
+var cel float64
+var kel float64
 var out string
 var funfacts string
 
@@ -21,10 +25,12 @@ func init() {
 	   skal returnere output: 0°F er -17.78°C
 	*/
 
-	// Definerer og initialiserer flagg-variablene
-	flag.Float64Var(&fahr, "F", 0.0, "temperatur i grader fahrenheit")
+	// Definerer og initialiserer flagg-variablene som brukeren skal bruke i kommandolinje
+	flag.Float64Var(&fahr, "F", 0.0, "temperatur i grader fahrenheit") //allokerer plass til fahr variabel med 64 bits
+	flag.Float64Var(&cel, "C", 0.0, "temperatur i grader celsius")
+	flag.Float64Var(&kel, "K", 0.0, "temperatur i grader kelvin")
 	// Du må selv definere flag-variablene for "C" og "K"
-	flag.StringVar(&out, "out", "C", "beregne temperatur i C - celsius, F - farhenheit, K- Kelvin")
+	flag.StringVar(&out, "out", "0.0", "beregne temperatur i C - celsius, F - farhenheit, K- Kelvin")
 	flag.StringVar(&funfacts, "funfacts", "sun", "\"fun-facts\" om sun - Solen, luna - Månen og terra - Jorden")
 	// Du må selv definere flag-variabelen for -t flagget, som bestemmer
 	// hvilken temperaturskala skal brukes når funfacts skal vises
@@ -33,7 +39,7 @@ func init() {
 
 func main() {
 
-	flag.Parse()
+	flag.Parse() //ser hva som er i kommandolinje og legger det inn i variabel 
 
 	/**
 	    Her må logikken for flaggene og kall til funksjoner fra conv og funfacts
@@ -56,18 +62,28 @@ func main() {
 	*/
 
 	// Her er noen eksempler du kan bruke i den manuelle testingen
-	fmt.Println(fahr, out, funfacts)
+	//fmt.Println(fahr, kel, cel, out, funfacts)
 
-	fmt.Println("len(flag.Args())", len(flag.Args()))
-	fmt.Println("flag.NFlag()", flag.NFlag())
+	//fmt.Println("len(flag.Args())", len(flag.Args()))
+	//fmt.Println("flag.NFlag()", flag.NFlag())
 
-	fmt.Println(isFlagPassed("out"))
+	//fmt.Println(isFlagPassed("out"))
 
 	// Eksempel på enkel logikk
-	if out == "C" && isFlagPassed("F") {
-		// Kalle opp funksjonen FahrenheitToCelsius(fahr), som da
-		// skal returnere °C
-		fmt.Println("0°F er -17.78°C")
+	if isFlagPassed("F") && out == "C" {
+		fmt.Println("F:", fahr, "til C:", conv.FarhenheitToCelsius(fahr)) // Kalle opp funksjonen FahrenheitToCelsius(fahr), som da skal returnere °C
+	} else if isFlagPassed("F") && out == "K"{
+		fmt.Println("F:", fahr, "til K:", conv.FahrenheitToKelvin(fahr))
+	} else if isFlagPassed("C") && out == "F"{
+		fmt.Println("C:", cel, "til F:", conv.CelsiusToFahrenheit(cel))
+	} else if isFlagPassed("C") && out == "K"{
+		fmt.Println("C:", cel, "til K:", conv.CelsiusToFahrenheit(cel))
+	} else if isFlagPassed("K") && out == "C"{
+		fmt.Println("K:", kel, "til C:", conv.CelsiusToFahrenheit(kel))
+	} else if isFlagPassed("K") && out == "F"{
+		fmt.Println("K:", kel, "til F:", conv.CelsiusToFahrenheit(kel))
+	} else {
+		fmt.Println("Noe gikk galt")
 	}
 
 }
