@@ -12,10 +12,8 @@ import "fmt"
 */
 
 // Konverterer Farhenheit til Celsius
-func FarhenheitToCelsius(value float64) string {
-	celsius := (value - 32) * (5.0/9)
-  return fmt.Sprintf("%.2f", celsius)
-
+func FarhenheitToCelsius(value float64) float64 {
+	return (value - 32) * (5.0/9)
 }
 
 func FahrenheitToKelvin(value float64) string {
@@ -23,9 +21,10 @@ func FahrenheitToKelvin(value float64) string {
   return fmt.Sprintf("%.2f", kelvin)
 }
 
-func CelsiusToFahrenheit(value float64) string {
+//gjorde enrdinger her for at funksjonen skulle fungere i min yr oppgave
+func CelsiusToFahrenheit(value float64) float64 {
 	fahrenheit := (value*1.8) + 32
-  return fmt.Sprintf("%.2f", fahrenheit)
+  return fahrenheit
 }
 
 func CelsiusToKelvin(value float64) string {

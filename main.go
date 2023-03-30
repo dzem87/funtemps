@@ -77,11 +77,11 @@ func main() {
 	} else if isFlagPassed("C") && out == "F"{
 		fmt.Println("C:", cel, "til F:", conv.CelsiusToFahrenheit(cel))
 	} else if isFlagPassed("C") && out == "K"{
-		fmt.Println("C:", cel, "til K:", conv.CelsiusToFahrenheit(cel))
+		fmt.Println("C:", cel, "til K:", conv.CelsiusToKelvin(cel))
 	} else if isFlagPassed("K") && out == "C"{
-		fmt.Println("K:", kel, "til C:", conv.CelsiusToFahrenheit(kel))
+		fmt.Println("K:", kel, "til C:", conv.KelvinToFahrenheit(kel))
 	} else if isFlagPassed("K") && out == "F"{
-		fmt.Println("K:", kel, "til F:", conv.CelsiusToFahrenheit(kel))
+		fmt.Println("K", kel, "til F:", conv.KelvinToFahrenheit(kel))
 	} else {
 		fmt.Println("Noe gikk galt")
 	}
